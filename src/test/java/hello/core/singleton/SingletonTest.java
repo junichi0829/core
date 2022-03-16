@@ -6,6 +6,8 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import static org.assertj.core.api.Assertions.*;
+
 public class SingletonTest {
     @Test
     @DisplayName("스프링 없는 純粹한 DI Container")
@@ -23,6 +25,21 @@ public class SingletonTest {
         System.out.println("memberService2 = " + memberService2);
 
         // memberService1 != memberService2
-        Assertions.assertThat(memberService1).isNotSameAs(memberService2);
+        assertThat(memberService1).isNotSameAs(memberService2);
+    }
+
+    @Test
+    @DisplayName("Singleton 패턴을 適用한 客體 使用")
+    void singletonServiceTest() {
+        SingletonService singletonService1 = SingletonService.getInstance();
+        SingletonService singletonService2 = SingletonService.getInstance();
+
+        System.out.println("singletonService1 = " + singletonService1);
+        System.out.println("singletonService2 = " + singletonService2);
+
+        assertThat(singletonService1).isSameAs(singletonService2);
+        // same -> Java의 「==」
+        // equal -> Java의 「equals」
+
     }
 }
